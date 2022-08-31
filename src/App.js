@@ -9,6 +9,7 @@ import { fetchBooks } from './redux/tablesRedux';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { useSelector } from 'react';
+import InsideSingleTable from './components/views/InsideSingleTable';
 // import tables from './redux/initialState';
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
       <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/table/:id" element={<SingleTable/>}/>
+          <Route path="/table/:id" element={<InsideSingleTable/>}/>
           <Route path="*" element={<NotFound />} />
         </Routes>
       <Footer />
