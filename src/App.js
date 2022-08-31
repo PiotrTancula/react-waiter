@@ -5,15 +5,18 @@ import Home from './components/pages/Home';
 import NotFound from './components/pages/NotFound';
 import SingleTable from './components/views/SingleTable';
 import Footer from './components/views/Footer';
-import { updateTables } from './redux/tablesRedux';
+import { fetchBooks } from './redux/tablesRedux';
 import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector } from 'react';
+// import tables from './redux/initialState';
 
 function App() {
 
   const dispatch = useDispatch();
-  const fetchBooks = () => {
-    fetch('http://localhost:3131/api/tables')
-  }
+
+
+  useEffect(() => dispatch(fetchBooks()), [dispatch]);
 
   return (
     <Container>
