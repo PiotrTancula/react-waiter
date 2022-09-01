@@ -13,8 +13,8 @@ const Home = () => {
 
       <h1>All tables</h1>
       <ListGroup>
-        {/* {allTables.map(table => <SingleTable key={table.id} {...table} />)} */}
-        {allTables.map(table =>
+        {allTables.map(table => <SingleTable key={table.id} {...table} />)}
+        {/* {allTables.map(table =>
           <ListGroup.Item key={table.id} {...table} className="d-flex flex-row justify-content-between">
             <div className="d-flex flex-row justify-content-center align-items-center">
               <h2 className="fw-bold px-3">Table {table.id} </h2>
@@ -23,7 +23,7 @@ const Home = () => {
             <Link to={`/table/${table.id}`}>
               <Button type="button class">show more</Button>
             </Link>
-          </ListGroup.Item>)}
+          </ListGroup.Item>)} */}
       </ListGroup>
   </>
   )

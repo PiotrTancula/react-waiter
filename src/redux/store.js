@@ -7,7 +7,9 @@ export const getAllTables= (state) => state.tables;
 
 
 const subreducers = {
-  tables: tablesReducer
+  tables: tablesReducer,
+  status: tablesReducer
+
 }
 
 const reducer = combineReducers(subreducers);
