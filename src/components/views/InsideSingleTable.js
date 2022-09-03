@@ -76,16 +76,21 @@ const InsideSingleTable = () => {
           {errors.people && <small className="w50 form-text text-danger mt-2">People's amount has to be between 0 and 10 but not bigger than the table's capacity</small>}
 
 
-        {status === "Busy" &&
-        <>
+
+
+        {status !== "Busy" &&
+          <>
+
 
 
           <Row>
             <Col md={2}>
-              <Form.Group className="d-flex flex-row align-items-center">
+              <Form.Group className="d-flex flex-row align-items-center w-100">
                 <Form.Label className="px-3 py-3">Bill: </Form.Label>
                 <p className="px-3"> $ </p>
-                <Form.Control {...register('bill', { required: true, min: 1 }) } type="input" className=""  value={status === true ? setBill(0) : bill} onChange={e => setBill(e.target.value)} />
+                <div class="col-md-4">
+                <Form.Control  {...register('bill', { required: true, min: 1 }) } type="input" className="" value={bill} onChange={e => setBill(e.target.value)} />
+                </div>
               </Form.Group>
             </Col>
           </Row>
@@ -96,24 +101,27 @@ const InsideSingleTable = () => {
         </>
         }
 
-        {status !== "Busy" &&
-        <>
-             <Row>
+        {status === "Busy" &&
+          <>
+
+<Row>
             <Col md={2}>
-              <Form.Group className="d-flex flex-row align-items-center">
+              <Form.Group className="d-flex flex-row align-items-center w-100">
                 <Form.Label className="px-3 py-3">Bill: </Form.Label>
                 <p className="px-3"> $ </p>
+                <div class="col-md-4">
                 <Form.Control  {...register('bill', { required: true, min: 1 }) } type="input" className="" value={bill} onChange={e => setBill(e.target.value)} />
+                </div>
               </Form.Group>
             </Col>
           </Row>
 
           <Row>
           </Row>
-
+          {errors.bill && <small className="w50 form-text text-danger mt-2">The bill has to have a value above 0 </small>}
         </>
-        }
 
+        }
 
 
         <Button type="submit" variant="primary" >update</Button>
