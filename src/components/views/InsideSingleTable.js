@@ -103,7 +103,7 @@ const InsideSingleTable = () => {
               <Form.Group className="d-flex flex-row align-items-center">
                 <Form.Label className="px-3 py-3">Bill: </Form.Label>
                 <p className="px-3"> $ </p>
-                <Form.Control disabled {...register('bill', { required: true, min: 1 }) } type="input" className="" value={0} onChange={e => setBill(e.target.value)} />
+                <Form.Control  {...register('bill', { required: true, min: 1 }) } type="input" className="" value={bill} onChange={e => setBill(e.target.value)} />
               </Form.Group>
             </Col>
           </Row>
