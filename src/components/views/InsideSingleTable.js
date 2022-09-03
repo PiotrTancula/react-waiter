@@ -1,16 +1,33 @@
 import { useParams } from "react-router-dom";
 import { Form,Container,Row,Col,Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getTableById } from "../../redux/tablesRedux";
 
-const InsideSingleTable = ({ ...props }) => {
+const InsideSingleTable = () => {
 
   const { id } = useParams();
-  // const statusCategories = useSelector(state=>state.status);
-  // console.log(statusCategories);
+  const table = useSelector(state => getTableById(state, id));
+  const [statuses, setStatuses] = useState([]);
 
-  const [people, setPeople] = useState(props.peopleAmount);
-  console.log(props.peopleAmount);
+  const [people, setPeople] = useState(0);
+  const [maxPeople, setMaxPeople] = useState(0);
+
+  // on startup
+  useEffect(() => {
+    fetch('http://localhost:3131/api/statuses')
+      .then(res => res.json())
+      .then(statuses => setStatuses(statuses));
+  }, []);
+
+  useEffect(() => {
+    if(table) {
+      setPeople(table.peopleAmount);
+      setMaxPeople(table.maxPeopleAmount);
+    }
+  }, [table])
+
+  if (!table) return <h2>Loading...</h2>
   return (
     <>
       <h1>Table {id} </h1>
@@ -20,11 +37,7 @@ const InsideSingleTable = ({ ...props }) => {
           <Form.Label className="px-3 py-3">Status: </Form.Label>
           <Form.Select className="w-25" aria-label="Default select example">
             <option>Open this select menu</option>
-            {/* {statusCategories.map(status => <option key={status.id} >{status.description}</option>)} */}
-            <option value="1">Free</option>
-            <option value="2">Reserved</option>
-            <option value="3">Busy</option>
-            <option value="3">Cleaning</option>
+            {statuses.map(status => <option key={status.id} >{status.description}</option>)}
           </Form.Select>
         </Form.Group>
 
@@ -34,7 +47,7 @@ const InsideSingleTable = ({ ...props }) => {
             <Form.Label className="px-3 py-3">People: </Form.Label>
               <Form.Control type="input" className="" value={people} />
               <p className="px-3"> / </p>
-              <Form.Control type="input" className=""  />
+              <Form.Control type="input" className="" value={maxPeople} />
             </Form.Group>
           </Col>
         </Row>
