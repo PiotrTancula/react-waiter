@@ -19,8 +19,8 @@ const InsideSingleTable = () => {
 
   const [tableId, setTableId] = useState(0);
   const [statuses, setStatuses] = useState([]);
-  const [people, setPeople] = useState(0);
-  const [maxPeople, setMaxPeople] = useState(0);
+  const [peopleAmount, setPeople] = useState(0);
+  const [maxPeopleAmount, setMaxPeople] = useState(0);
   const [bill, setBill] = useState(0);
   const [status, setStatus] = useState('');
 
@@ -42,7 +42,7 @@ const InsideSingleTable = () => {
   }, [table])
 
   const handleSubmit = () => {
-    dispatch(editTableInfo({ id, status, people, maxPeople, bill }));
+    dispatch(editTableInfo({ id, status, peopleAmount, maxPeopleAmount, bill }));
     navigate('/');
   }
 
@@ -57,33 +57,65 @@ const InsideSingleTable = () => {
           <Form.Select className="w-25" aria-label="Default select example" onChange={e => setStatus(e.target.value)} value={status}>
             <option>Open this select menu</option>
             {statuses.map(status => <option key={status.id} >{status.description}</option>)}
+
           </Form.Select>
         </Form.Group>
 
-        <Row>
-          <Col md={3}>
-          <Form.Group className="d-flex flex-row align-items-center w-100">
-              <Form.Label className="px-3 py-3">People: </Form.Label>
-                <Form.Control {...register('people', { required: true, min: 0, max: `${table.maxPeopleAmount}` })} type="input" className="" value={people} onChange={e => setPeople(e.target.value)} />
-                <p className="px-3"> / </p>
-              <Form.Control  type="input" className="" value={maxPeople} onChange = { e => setMaxPeople(e.target.value)} />
-            </Form.Group>
-          </Col>
-        </Row>
-        {errors.people && <small className="w50 form-text text-danger mt-2">People's amount has to be between 0 and 10 but not bigger than the table's capacity</small>}
-        <Row>
-          <Col md={2}>
-          <Form.Group className="d-flex flex-row align-items-center">
-            <Form.Label className="px-3 py-3">Bill: </Form.Label>
-            <p className="px-3"> $ </p>
-            <Form.Control {...register('bill', { required: true, min: 1 }) } type="input" className="" value={bill} onChange={e => setBill(e.target.value)} />
 
-          </Form.Group>
-          </Col>
-        </Row>
-        {errors.bill && <small className="w50 form-text text-danger mt-2">The bill has to have a value aboce 0 </small>}
-        <Row>
-        </Row>
+
+          <Row>
+            <Col md={3}>
+            <Form.Group className="d-flex flex-row align-items-center w-100">
+                <Form.Label className="px-3 py-3">People: </Form.Label>
+                  <Form.Control {...register('people', { required: true, min: 0, max: `${table.maxPeopleAmount}` })} type="input" className="" value={peopleAmount} onChange={e => setPeople(e.target.value)} />
+                  <p className="px-3"> / </p>
+                  <Form.Control  type="input" className="" value={maxPeopleAmount} onChange = { e => setMaxPeople(e.target.value)} />
+              </Form.Group>
+            </Col>
+          </Row>
+          {errors.people && <small className="w50 form-text text-danger mt-2">People's amount has to be between 0 and 10 but not bigger than the table's capacity</small>}
+
+
+        {status === "Busy" &&
+        <>
+
+
+          <Row>
+            <Col md={2}>
+              <Form.Group className="d-flex flex-row align-items-center">
+                <Form.Label className="px-3 py-3">Bill: </Form.Label>
+                <p className="px-3"> $ </p>
+                <Form.Control {...register('bill', { required: true, min: 1 }) } type="input" className=""  value={status === true ? setBill(0) : bill} onChange={e => setBill(e.target.value)} />
+              </Form.Group>
+            </Col>
+          </Row>
+
+          <Row>
+          </Row>
+          {errors.bill && <small className="w50 form-text text-danger mt-2">The bill has to have a value above 0 </small>}
+        </>
+        }
+
+        {status !== "Busy" &&
+        <>
+             <Row>
+            <Col md={2}>
+              <Form.Group className="d-flex flex-row align-items-center">
+                <Form.Label className="px-3 py-3">Bill: </Form.Label>
+                <p className="px-3"> $ </p>
+                <Form.Control disabled {...register('bill', { required: true, min: 1 }) } type="input" className="" value={0} onChange={e => setBill(e.target.value)} />
+              </Form.Group>
+            </Col>
+          </Row>
+
+          <Row>
+          </Row>
+
+        </>
+        }
+
+
+
         <Button type="submit" variant="primary" >update</Button>
 
         </Form>
