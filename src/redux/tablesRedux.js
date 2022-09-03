@@ -7,7 +7,7 @@ const UPDATE_TABLES = createActionName('UPDATE_TABLES');
 // action creators
 
 export const updateTables = payload => ({ type: UPDATE_TABLES, payload });
-export const fetchBooks = dispatch => {
+export const fetchTables = dispatch => {
   return (dispatch) => {
     fetch('http://localhost:3131/api/tables')
       .then(res => res.json())
@@ -15,6 +15,8 @@ export const fetchBooks = dispatch => {
       );
   }
 };
+
+
 
 const tablesReducer = (statePart = [], action) => {
   switch (action.type) {

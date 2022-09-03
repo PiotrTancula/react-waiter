@@ -5,7 +5,7 @@ import Home from './components/pages/Home';
 import NotFound from './components/pages/NotFound';
 import SingleTable from './components/views/SingleTable';
 import Footer from './components/views/Footer';
-import { fetchBooks } from './redux/tablesRedux';
+import { fetchTables } from './redux/tablesRedux';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { useSelector } from 'react';
@@ -17,7 +17,7 @@ function App() {
   const dispatch = useDispatch();
 
 
-  useEffect(() => dispatch(fetchBooks()), [dispatch]);
+  useEffect(() => dispatch(fetchTables()), [dispatch]);
 
   return (
     <Container>
