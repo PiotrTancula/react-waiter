@@ -52,7 +52,7 @@ const InsideSingleTable = () => {
   }, [status])
 
   useEffect(() => {
-    if (maxPeopleAmount > peopleAmount) {
+    if ( status === "Busy" && maxPeopleAmount > peopleAmount) {
       setPeopleAmount(maxPeopleAmount)
     }
   },[maxPeopleAmount])
